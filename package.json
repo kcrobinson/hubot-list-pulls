@@ -4,13 +4,13 @@
   "version": "0.0.1",
   "author": "kcrobinson <kcrobinson@gmail.com>",
   "license": "MIT",
-  "keywords": "git, github, pull requests",
+  "keywords": ["git", "github", "pull requests", "hubot"],
   "repository": {
     "type": "git",
-    "url": "git://github.com/hubot-scripts/hubot-list-pulls.git"
+    "url": "git://github.com/kcrobinson/hubot-list-pulls.git"
   },
   "bugs": {
-    "url": "https://github.com/hubot-scripts/hubot-list-pulls/issues"
+    "url": "https://github.com/kcrobinson/hubot-list-pulls/issues"
   },
   "dependencies": {
     "moment": "^2.10.6"

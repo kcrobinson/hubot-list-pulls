@@ -35,5 +35,5 @@ HUBOT_LIST_PULLS_GITHUB_TOKEN
 
 ```
 user1>> hubot list pulls
-hubot>> '/code <a href="http://github.com/kcrobinson/hubot-list-pulls/pulls/240">#240</a> - "This is a pull request" - created by kcrobinson a year ago'
+hubot>> /code <a href="http://github.com/kcrobinson/hubot-list-pulls/pulls/240">#240</a> - "This is a pull request" - created by kcrobinson a year ago
 ```
