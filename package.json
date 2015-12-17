@@ -1,7 +1,7 @@
 {
   "name": "hubot-list-pulls",
   "description": "Lists open pull requests",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "kcrobinson <kcrobinson@gmail.com>",
   "license": "MIT",
   "keywords": ["git", "github", "pull requests", "hubot"],
