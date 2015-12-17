@@ -47,3 +47,42 @@ describe 'list-pulls', ->
         ['alice', 'hubot list pulls'],
         ['hubot', '/code <a href="http://github.com/kcrobinson/hubot-list-pulls/pulls/240">#240</a> - "This is a pull request" - created by kcrobinson a year ago']
       ]
+      
+  context 'user says "remove repo" on existing repo', ->
+    beforeEach (done) ->
+      room.user.say 'alice', 'hubot remove repo kcrobinson/hubot-list-pulls'
+      setTimeout done, 100
+      
+    it 'should remove repo', ->
+      expect(room.messages).to.eql [
+        ['alice', 'hubot add repo kcrobinson/hubot-list-pulls'],
+        ['hubot', 'Repo added: kcrobinson/hubot-list-pulls'],
+        ['alice', 'hubot remove repo kcrobinson/hubot-list-pulls'],
+        ['hubot', 'Repo removed: kcrobinson/hubot-list-pulls']
+      ]
+  
+  context 'user says "remove repo" on non-existant repo', ->
+    beforeEach (done) ->
+      room.user.say 'alice', 'hubot remove repo kcrobinson/what-repo-is-this'
+      setTimeout done, 100
+      
+    it 'should display failed message', ->
+      expect(room.messages).to.eql [
+        ['alice', 'hubot add repo kcrobinson/hubot-list-pulls'],
+        ['hubot', 'Repo added: kcrobinson/hubot-list-pulls'],
+        ['alice', 'hubot remove repo kcrobinson/what-repo-is-this'],
+        ['hubot', 'Repo does not exist: kcrobinson/what-repo-is-this']
+      ]
+      
+  context 'user says "list repos"', ->
+    beforeEach (done) ->
+      room.user.say 'alice', 'hubot list repos'
+      setTimeout done, 100
+    
+    it 'should list repos', ->
+      expect(room.messages).to.eql [
+        ['alice', 'hubot add repo kcrobinson/hubot-list-pulls'],
+        ['hubot', 'Repo added: kcrobinson/hubot-list-pulls'],
+        ['alice', 'hubot list repos'],
+        ['hubot', 'Repos: kcrobinson/hubot-list-pulls']
+      ]

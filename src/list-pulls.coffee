@@ -35,6 +35,11 @@ module.exports = (robot) ->
   robot.respond /add repo ([\w-_]*\/[\w-_]*)/i, (msg) ->
     repo = msg.match[1]
     path = 'repos/' + repo
+    
+    if repoList.indexOf(repo) > -1
+      msg.send 'Repo already exists: ' + repo
+      return
+    
     callGithub path, robot, (err, res, body) ->
       isValid = res.statusCode == 200
       if isValid
@@ -42,6 +47,21 @@ module.exports = (robot) ->
         msg.send 'Repo added: ' + repo
       else
         msg.send 'Failed to validate repo: ' + repo
+        
+  robot.respond /(remove|delete) repo ([\w-_]*\/[\w-_]*)/i, (msg) ->
+    repo = msg.match[2]
+    index = repoList.indexOf(repo)
+    if index < 0
+      msg.send 'Repo does not exist: ' + repo
+      return
+    repoList.splice(index, 1)
+    msg.send 'Repo removed: ' + repo
+    
+  robot.respond /list repos/, (msg) ->
+    if repoList.length == 0
+      msg.send 'No repos. Use "add repo" command to add repos.'
+    else
+      msg.send 'Repos: ' + repoList.join(', ')
       
 processPull = (repo, robot, msg) ->
   path = 'repos/' + repo + '/pulls?state=open'
@@ -66,12 +86,6 @@ formatPull = (pull) ->
   txt += ' ' + timeAgo
   
   return txt
-  
-validateRepo = (repo, robot, cb) ->
-  path = 'repos/' + repo
-  callGithub path, robot, (err, res, body) ->
-    isValid = res.statusCode == 200
-    cb(isValid)
       
 callGithub = (pathAndQuery, robot, responseHandler) ->
   url = 'https://api.github.com/' + pathAndQuery
